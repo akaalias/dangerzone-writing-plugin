@@ -10,8 +10,6 @@ export default class MyPlugin extends Plugin {
 	cmEditors: CodeMirror.Editor[];
 
 	onload() {
-		console.log('Loaded DANGER Plugin');
-
 		this.statusBar = this.addStatusBarItem()
 		this.cmEditors = [];
 
@@ -31,7 +29,7 @@ export default class MyPlugin extends Plugin {
 		console.log('unloading plugin');
 		this.cmEditors.forEach((cm) => {
 			cm.off("keydown", this.handleKeyDown);
-		  });
+		});
 	}
 
 	startTimer() {
@@ -61,18 +59,18 @@ class CountdownTimer {
 	editor: CodeMirror.Editor;
 	secondsUntilDeletion = 0;
 
-    constructor(public counter = 10, editor: CodeMirror.Editor, statusBar: HTMLElement) {
+	constructor(public counter = 10, editor: CodeMirror.Editor, statusBar: HTMLElement) {
 		this.editor = editor;
 		this.secondsUntilDeletion = 5;
 
-        this.intervalId = setInterval(() => {
+		this.intervalId = setInterval(() => {
 
 			this.counter = this.counter - 1;
 			this.secondsUntilDeletion = this.secondsUntilDeletion - 1;
 
 			if(this.secondsUntilDeletion <= 3 && editor.getValue().length > 0) {
 				statusBar.setText(`${this.secondsUntilDeletion}`);
-				statusBar.setAttr('style', 'color: red;');
+				statusBar.setAttr('style', 'color: maroon;');
 			} else {
 				statusBar.setText(`${this.counter} seconds left`);
 				statusBar.setAttr('style', 'color: #999;');
@@ -83,7 +81,7 @@ class CountdownTimer {
 				this.secondsUntilDeletion = 5;
 			}
 
-            if(this.counter === 0) {
+			if(this.counter === 0) {
 				statusBar.setText("");
 				clearInterval(this.intervalId);
 			}
