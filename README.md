@@ -1,45 +1,30 @@
-## Obsidian Sample Plugin
+## Dangerzone Writing for Obsidian
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+Hey all, I’ve been a paying customer of (FlowState)[https://apps.apple.com/de/app/flowstate/id1060276201] since 2016 and wanted something similar for Obsidian.
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+It’s really fun. And stressful. But mostly fun.
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
+Basically, you start a timer for X minutes and during those X minutes you must write continuously. If you pause longer than 5 seconds, everything you’ve written is deleted.
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Changes the default font color to red using `styles.css`.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+## When to use the Dangerzone
 
+- Use it to "warm" up your writing muscle
+- Use it to write that first draft however dirty and ragged
+- Use it to keep you focused on one task
 
-### Releasing new releases
+## How to use the Dangerzone
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments.
-- Publish the release.
+How to use this plugin
 
-### Adding your plugin to the community plugin list
+1. Open a note in Obsidian
+2. Click the "Stopwatch" icon in the left bar to start the timer
+3. From now on, the count-down from 100 to 0 starts
+4. Start writing!
+5. DO NOT STOP WRITING
+6. If you DO stop writing for more than 5 seconds, everything you've written in this note so far is DELETED.
 
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+Again. If you stop for more than 5 seconds, your writing in this note is deleted. 
 
-### How to use
+## Let me know how it goes!
 
-- Clone this repo.
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode.
-
-### Manually installing the plugin
-
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
-
-### API Documentation
-
-See https://github.com/obsidianmd/obsidian-api
+Here's the thread on the Obsidian Forum - https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776
