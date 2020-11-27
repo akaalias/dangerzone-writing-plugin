@@ -1,6 +1,6 @@
 {
 	"id": "dangerzone-writing-plugin",
-	"name": "Dangerzone Writing Plugin",
+	"name": "Dangerzone Writing",
 	"version": "0.0.1",
 	"minAppVersion": "0.9.12",
 	"description": "This plugin is dangerous! When you start it, you have to write without stopping for 100 seconds. If you stop, think and look around, after 3 seconds the plugin will DELETE what you've written in this note.",
