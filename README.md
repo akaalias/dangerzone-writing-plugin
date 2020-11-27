@@ -1,6 +1,6 @@
-## Dangerzone Writing for Obsidian
+## 🔥 Dangerzone Writing 🔥 for Obsidian
 
-Hey all, I’ve been a paying customer of (FlowState)[https://apps.apple.com/de/app/flowstate/id1060276201] since 2016 and wanted something similar for Obsidian.
+Hey all, I’ve been a paying customer of [FlowState](https://apps.apple.com/de/app/flowstate/id1060276201) since 2016 and wanted something similar for Obsidian.
 
 It’s really fun. And stressful. But mostly fun.
 
