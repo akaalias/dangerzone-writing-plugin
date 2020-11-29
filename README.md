@@ -1,12 +1,35 @@
 ## 🔥 Dangerzone Writing 🔥 for Obsidian
 
+> “Elegant”
+
+> “Dangerous”
+
+> “Relaxing”
+
+> “Perverted”
+
+> “A godsend”
+
+> “Sadistic”
+
+> “Your best friend”
+
+> "Your worst nightmare"
+
 Hey all, I’ve been a paying customer of [FlowState](https://apps.apple.com/de/app/flowstate/id1060276201) since 2016 and wanted something similar for Obsidian.
 
 It’s really fun. And stressful. But mostly fun.
 
+It's simple. 
+
+You start a timer for X minutes. 
+
+THEN, during those X minutes you MUST write continuously. 
+
+The catch: If you PAUSE for longer than 5 seconds, everything you’ve written is DELETED.
+
 ![](https://github.com/akaalias/dangerzone-writing-plugin/blob/master/dangerzone_demo.gif?raw=true)
 
-Basically, you start a timer for X minutes. THEN, during those X minutes you MUST write continuously. If you PAUSE for longer than 5 seconds, everything you’ve written is DELETED.
 
 ## When to use Dangerzone Writing
 
