@@ -19,5 +19,14 @@
     "rollup": "^2.32.1",
     "tslib": "^2.0.3",
     "typescript": "^4.0.3"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akaalias/writers-unblock-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akaalias/writers-unblock-plugin/issues"
+  },
+  "homepage": "https://github.com/akaalias/writers-unblock-plugin#readme"
 }
