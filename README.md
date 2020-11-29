@@ -4,6 +4,8 @@ Hey all, I’ve been a paying customer of [FlowState](https://apps.apple.com/de/
 
 It’s really fun. And stressful. But mostly fun.
 
+![](https://github.com/akaalias/dangerzone-writing-plugin/blob/master/dangerzone_demo.gif?raw=true)
+
 Basically, you start a timer for X minutes and during those X minutes you must write continuously. If you pause longer than 5 seconds, everything you’ve written is deleted.
 
 ## When to use the Dangerzone
