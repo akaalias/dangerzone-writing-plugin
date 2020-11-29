@@ -30,6 +30,7 @@ Again. If you stop for more than 5 seconds, your writing in this note is deleted
 - How do YOU use the Dangerzone? [Leave a comment in the forum](https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776)
 - Got an idea for a setting? [Leave a comment in the forum](https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776)
 - Wanna share a story of one of your Dangerzone sessions? [Leave a comment in the forum](https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776)
+- Wanna share your Successful Session Count? [Leave a comment in the forum](https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776)
 - The plugin ate your homework? Well. Sorry but that's what it does (See disclaimer)
 
 ## Thank you 

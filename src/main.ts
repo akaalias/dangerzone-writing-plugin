@@ -32,6 +32,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
     onunload() {
         console.log('unloading plugin');
         this.cmEditor.off("keydown", this.handleKeyDown);
+        clearInterval(this.countdown.intervalId);
     }
 
     loadSettings() {
@@ -39,11 +40,12 @@ export default class DangerzoneWritingPlugin extends Plugin {
         (async () => {
             const loadedSettings = await this.loadData();
             if (loadedSettings) {
-                console.log("Found existing settings file");
+                console.log("Found existing settings file for Dangerzone Writing");
                 this.settings.countdownSeconds = loadedSettings.countdownSeconds;
                 this.settings.secondsUntilDeletion = loadedSettings.secondsUntilDeletion;
+                this.settings.succesfullSessionCount = loadedSettings.succesfullSessionCount;
             } else {
-                console.log("No settings file found, saving...");
+                console.log("No settings file found, creating for Dangerzone Writing");
                 this.saveData(this.settings);
             }
         })();
@@ -53,13 +55,17 @@ export default class DangerzoneWritingPlugin extends Plugin {
         let activeLeaf = this.app.workspace.activeLeaf;
 
         if (this.cmEditor) {
-            console.log(this.cmEditor);
+            //console.log(this.cmEditor);
 
             this.countdown = new CountdownTimer(this.settings.getCountdownSecondsInteger(),
                 this.cmEditor,
                 this.statusBar,
                 activeLeaf,
-                this.settings.getSecondsUntilDeletion());
+                this.settings.getSecondsUntilDeletionInteger(),
+                this);
+
+            new Notice("Dangerzone Writing session started!");
+
         } else {
             new Notice("No editor open.");
         }
@@ -76,13 +82,15 @@ export default class DangerzoneWritingPlugin extends Plugin {
 }
 
 class CountdownTimer {
-    intervalId: NodeJS.Timeout;
+    public intervalId: NodeJS.Timeout;
     editor: CodeMirror.Editor;
     activeLeaf: WorkspaceLeaf;
     secondsUntilDeletion: number;
     secondsRemaining: number;
+    plugin: DangerzoneWritingPlugin;
 
-    constructor(public counter: number, editor: CodeMirror.Editor, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number) {
+    constructor(public counter: number, editor: CodeMirror.Editor, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number, plugin: DangerzoneWritingPlugin) {
+        this.plugin = plugin;
         this.editor = editor;
         this.secondsUntilDeletion = secondsUntilDeletion;
         this.secondsRemaining = secondsUntilDeletion;
@@ -95,7 +103,7 @@ class CountdownTimer {
             this.counter = this.counter - 1;
             this.secondsRemaining = this.secondsRemaining - 1;
 
-            if (this.secondsRemaining < this.secondsUntilDeletion && editor.getValue().length > 0) {
+            if (this.secondsRemaining < this.secondsUntilDeletion && this.editor.getValue().length > 0) {
                 statusBar.setText(`${this.secondsRemaining}`);
                 statusBar.setAttr('style', 'color: red;');
             } else {
@@ -112,6 +120,13 @@ class CountdownTimer {
                 statusBar.setText("");
                 clearInterval(this.intervalId);
                 new Notice("Dangerzone session finished!");
+
+                // Save progress if there's something written
+                if(this.editor.getValue().length > 0) {
+                    let currentSettings = this.plugin.settings;
+                    currentSettings.succesfullSessionCount = (currentSettings.getSuccesfullSessionCountInteger() + 1).toString();
+                    this.plugin.saveData(currentSettings);
+                }
             }
         }, 1000)
     }
