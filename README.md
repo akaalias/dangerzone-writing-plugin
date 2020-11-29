@@ -8,10 +8,6 @@
 
 > “Perverted”
 
-> “A godsend”
-
-> “Sadistic”
-
 > “Your best friend”
 
 > "Your worst nightmare"
@@ -20,26 +16,25 @@ Hey all, I’ve been a paying customer of [FlowState](https://apps.apple.com/de/
 
 It’s really fun. And stressful. But mostly fun.
 
-It's simple. 
+**It's simple:** 
 
-You start a timer for X minutes. 
+1. You start a timer for X minutes. 
+2. THEN, during those X minutes you MUST write continuously. 
+3. The catch: If you PAUSE for longer than 5 seconds, everything you’ve written is DELETED.
 
-THEN, during those X minutes you MUST write continuously. 
-
-The catch: If you PAUSE for longer than 5 seconds, everything you’ve written is DELETED.
+Here's an example session:
 
 ![](https://github.com/akaalias/dangerzone-writing-plugin/blob/master/dangerzone_demo.gif?raw=true)
-
 
 ## When to use Dangerzone Writing
 
 - Use it to "warm" up your writing muscle
 - Use it to write that first draft however dirty and ragged
-- Use it to keep you focused on one task
+- Use it to keep you laser-focused on writing
 
 ## How to use the Dangerzone Writing plugin 
 
-1. Open a note in Obsidian (I usually create an empty one, but that's not necessary)
+1. Open a note in Obsidian^
 2. Click the "Stopwatch" icon in the left bar to start the timer
 3. From now on, the count-down from 60 seconds to 0 starts
 4. Start writing!
@@ -48,6 +43,7 @@ The catch: If you PAUSE for longer than 5 seconds, everything you’ve written i
 
 Again, let me be clear: If you stop for more than 5 seconds, your writing in this note will be deleted. 
 
+^ I usually create an empty one, but that's not necessary
 ## How to start as a beginner
 
 If you've never used this type of writing before, I highly recommend starting with the defaults and an empty note to get a feeling for it. 
