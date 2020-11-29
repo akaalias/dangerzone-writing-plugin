@@ -39,12 +39,11 @@ export default class ExtractHighlightsPluginSettingsTab extends PluginSettingTab
                         this.plugin.settings.secondsUntilDeletion = value;
                         this.plugin.saveData(this.plugin.settings);
                     }));
+        containerEl.createEl("h3", {text: "Thanks"});
+        containerEl.createEl("p", {text: "Thank you ryanjamurphy, roberthaisfield, macedotavares, afokapu, tristanbailey, lukeleppan, AutonomyGaps and hicsuntdragons for your feedback and support."});
+        containerEl.createEl("a", {text: "Visit the forum for feedback", href: "https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776/"})
 
         containerEl.createEl("h3", {text: "Disclaimer"});
-        containerEl.createEl("i", {text: "This plugin is provided as-is with no warranty that it'll work exactly as you expect. It's made to DELETE text in a note after X seconds of inactivity. Please do not hold me responsible if it does, in fact, DElETE your text."});
-
-        containerEl.createEl("h3", {text: "Thanks"});
-        containerEl.createEl("p", {text: "ryanjamurphy, roberthaisfield, macedotavares, afokapu, tristanbailey, lukeleppan, AutonomyGaps and hicsuntdragons for your feedback and support."});
-        containerEl.createEl("a", {text: "Visit the forum for feedback", href: "https://forum.obsidian.md/t/dangerzone-flowstate-like-plugin-prototype/8776/"})
+        containerEl.createEl("i", {text: "This plugin is provided as-is with no warranty that it'll work exactly as you expect. It's made to DELETE text in a note after X seconds of inactivity. Please do not hold me responsible if it does, in fact, DElETE your text. That's what it does."});
     }
 }
