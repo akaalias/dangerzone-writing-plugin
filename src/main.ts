@@ -1,4 +1,4 @@
-import {addIcon, Notice, Plugin, WorkspaceLeaf} from 'obsidian';
+import {addIcon, Notice, Plugin, WorkspaceLeaf, MarkdownView} from 'obsidian';
 import DangerzoneWritingPluginSettings from "./DangerzoneWritingPluginSettings"
 import DangerzoneWritingPluginSettingsTab from "./DangerzoneWritingPluginSettingsTab"
 
@@ -9,7 +9,6 @@ export default class DangerzoneWritingPlugin extends Plugin {
     public settings: DangerzoneWritingPluginSettings;
     statusBar: HTMLElement;
     countdown: CountdownTimer;
-    cmEditor: CodeMirror.Editor;
 
     onload() {
         this.loadSettings();
@@ -23,15 +22,12 @@ export default class DangerzoneWritingPlugin extends Plugin {
 
         this.registerEvent(
             this.app.on("codemirror", (cm: CodeMirror.Editor) => {
-                this.cmEditor = cm;
                 cm.on("keydown", this.handleKeyDown);
             })
         );
     }
 
     onunload() {
-        console.log('unloading plugin');
-        this.cmEditor.off("keydown", this.handleKeyDown);
         clearInterval(this.countdown.intervalId);
     }
 
@@ -53,21 +49,25 @@ export default class DangerzoneWritingPlugin extends Plugin {
 
     startTimer() {
         let activeLeaf = this.app.workspace.activeLeaf;
+        const mdView = this.app.workspace.activeLeaf.view as MarkdownView;
 
-        if (this.cmEditor) {
-            //console.log(this.cmEditor);
+        if (mdView && mdView.sourceMode) {
+            const cmEditor = mdView.sourceMode.cmEditor;
 
-            this.countdown = new CountdownTimer(this.settings.getCountdownSecondsInteger(),
-                this.cmEditor,
-                this.statusBar,
-                activeLeaf,
-                this.settings.getSecondsUntilDeletionInteger(),
-                this);
+            if (cmEditor) {
+                this.countdown = new CountdownTimer(this.settings.getCountdownSecondsInteger(),
+                    cmEditor,
+                    this.statusBar,
+                    activeLeaf,
+                    this.settings.getSecondsUntilDeletionInteger(),
+                    this);
 
-            new Notice("Dangerzone Writing session started!");
-
+                new Notice("Dangerzone Writing session started!");
+            } else {
+                new Notice("No editor active");
+            }
         } else {
-            new Notice("No editor open.");
+            new Notice("No file open.");
         }
     }
 
@@ -94,7 +94,6 @@ class CountdownTimer {
         this.editor = editor;
         this.secondsUntilDeletion = secondsUntilDeletion;
         this.secondsRemaining = secondsUntilDeletion;
-
         this.activeLeaf = activeLeaf;
         this.counter = counter;
 
