@@ -126,9 +126,14 @@ class CountdownTimer {
             this.secondsRemaining = this.secondsRemaining - 1;
 
             if (this.secondsRemaining < this.secondsUntilDeletion && this.editor.getValue().length > 0) {
+
+                const opacity = this.getOpacityForSecondsRemaining(this.secondsRemaining, this.secondsUntilDeletion);
+                this.editor.getWrapperElement().setAttribute("style", "opacity:" + opacity + "%");
+
                 statusBar.setText(`${this.secondsRemaining}`);
                 statusBar.setAttr('style', 'color: red;');
             } else {
+                this.editor.getWrapperElement().setAttribute("style", "opacity: 100%");
                 statusBar.setText(`${this.counter} seconds left`);
                 statusBar.setAttr('style', 'color: #999;');
             }
@@ -151,6 +156,11 @@ class CountdownTimer {
                 }
             }
         }, 1000)
+    }
+
+    getOpacityForSecondsRemaining(secondsRemaining: number, secondsUntilDeletion: number) {
+        // 3 / 5
+        return secondsRemaining / secondsUntilDeletion * 100;
     }
 
     resetCountdown() {
