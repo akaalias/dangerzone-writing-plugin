@@ -76,4 +76,4 @@ Thank you ryanjamurphy, roberthaisfield, macedotavares, afokapu, tristanbailey, 
 
 ## Disclaimer
 
-This plugin is provided as-is with no warranty that it'll work exactly as you expect. It's made to DELETE text in a note after X seconds of inactivity when you're start a session. Please do not hold me responsible if it does, in fact, DELETE your text. That's what it does.
+This plugin is provided as-is with NO warranty that it'll work exactly as you expect. It's made to DELETE text in a note after X seconds of inactivity when you're start a session. Please do not hold me responsible if it does, in fact, DELETE your text. That's what it does. On the other hand there is always the possibility of a bug that makes this plugin behave unexpectedly. 
