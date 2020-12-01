@@ -25,6 +25,27 @@ export default class DangerzoneWritingPlugin extends Plugin {
                 cm.on("keydown", this.handleKeyDown);
             })
         );
+
+        this.addCommand({
+            id: "dangerzone-session-start",
+            name: "Shortcut for starting a Dangerzone Writing session",
+            callback: () => this.startOrContinueTimer(),
+            hotkeys: [
+                {
+                    modifiers: ["Alt", "Shift"],
+                    key: "⁄",
+                },
+            ],
+        });
+    }
+
+    startOrContinueTimer() {
+        if(this.countdown) {
+            // continue
+            this.countdown.resetCountdown();
+        } else {
+            this.startTimer();
+        }
     }
 
     onunload() {
@@ -88,6 +109,7 @@ class CountdownTimer {
     secondsUntilDeletion: number;
     secondsRemaining: number;
     plugin: DangerzoneWritingPlugin;
+    originalCountdownSeconds: number;
 
     constructor(public counter: number, editor: CodeMirror.Editor, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number, plugin: DangerzoneWritingPlugin) {
         this.plugin = plugin;
@@ -96,6 +118,7 @@ class CountdownTimer {
         this.secondsRemaining = secondsUntilDeletion;
         this.activeLeaf = activeLeaf;
         this.counter = counter;
+        this.originalCountdownSeconds = counter;
 
         this.intervalId = setInterval(() => {
 
@@ -128,6 +151,10 @@ class CountdownTimer {
                 }
             }
         }, 1000)
+    }
+
+    resetCountdown() {
+        this.counter = this.originalCountdownSeconds;
     }
 
     resetSecondUntilDeletion() {
