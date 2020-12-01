@@ -134,6 +134,7 @@ class CountdownTimer {
                 statusBar.setAttr('style', 'color: red;');
             } else {
                 this.editor.getWrapperElement().setAttribute("style", "opacity: 100%");
+
                 statusBar.setText(`${this.counter} seconds left`);
                 statusBar.setAttr('style', 'color: #999;');
             }
