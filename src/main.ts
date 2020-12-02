@@ -17,7 +17,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
         this.statusBar = this.addStatusBarItem()
 
         this.addRibbonIcon('watch', 'Dangerzone Writing', () => {
-            this.startTimer();
+            this.startOrContinueTimer();
         });
 
         this.registerEvent(
@@ -40,8 +40,9 @@ export default class DangerzoneWritingPlugin extends Plugin {
     }
 
     startOrContinueTimer() {
+        this.setCustomStyle();
+
         if(this.countdown) {
-            // continue
             this.countdown.resetCountdown();
         } else {
             this.startTimer();
@@ -49,6 +50,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
     }
 
     onunload() {
+        this.removeStyle();
         clearInterval(this.countdown.intervalId);
     }
 
@@ -61,6 +63,8 @@ export default class DangerzoneWritingPlugin extends Plugin {
                 this.settings.countdownSeconds = loadedSettings.countdownSeconds;
                 this.settings.secondsUntilDeletion = loadedSettings.secondsUntilDeletion;
                 this.settings.succesfullSessionCount = loadedSettings.succesfullSessionCount;
+                this.settings.customEditorFontSize = loadedSettings.customEditorFontSize;
+                this.settings.customEditorBackgroundColor = loadedSettings.customEditorBackgroundColor;
             } else {
                 console.log("No settings file found, creating for Dangerzone Writing");
                 this.saveData(this.settings);
@@ -97,9 +101,34 @@ export default class DangerzoneWritingPlugin extends Plugin {
         event: KeyboardEvent
     ): void => {
         if (this.countdown) {
-            this.countdown.resetSecondUntilDeletion()
+            this.countdown.resetSecondUntilDeletion();
         }
     };
+
+    setCustomStyle() {
+        const css = document.createElement('style');
+        css.id = 'dangerzone-writing-style';
+
+        const customEditorFontSizeCssString = this.settings.getCustomEditorFontSizeCssString();
+        const customEditorBackgroundColor = this.settings.getCustomEditorBackgroundColorCssString();
+
+        css.innerText = `
+            #active-dangerzone-editor { 
+                ${customEditorFontSizeCssString};
+                ${customEditorBackgroundColor};             
+            }`;
+
+        document.getElementsByTagName("head")[0].appendChild(css);
+        this.updateStyle();
+    }
+
+    updateStyle() {
+        this.app.workspace.trigger('css-change');
+    }
+
+    removeStyle() {
+        document.getElementById('dangerzone-writing-style').remove();
+    }
 }
 
 class CountdownTimer {
@@ -119,6 +148,8 @@ class CountdownTimer {
         this.activeLeaf = activeLeaf;
         this.counter = counter;
         this.originalCountdownSeconds = counter;
+
+        this.editor.getWrapperElement().setAttribute("id", "active-dangerzone-editor");
 
         this.intervalId = setInterval(() => {
 
@@ -148,6 +179,8 @@ class CountdownTimer {
                 statusBar.setText("");
                 clearInterval(this.intervalId);
                 new Notice("Dangerzone session finished!");
+
+                this.plugin.removeStyle();
 
                 // Save progress if there's something written
                 if(this.editor.getValue().length > 0) {

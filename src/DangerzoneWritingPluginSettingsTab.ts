@@ -15,7 +15,12 @@ export default class ExtractHighlightsPluginSettingsTab extends PluginSettingTab
         containerEl.empty();
 
         containerEl.createEl("h2", {text: "Dangerzone Writing Plugin"});
+
+        containerEl.createEl("h3", {text: "Your Writing Stats"});
+
         containerEl.createEl("p", {text: "Successfully completed sessions: " + this.plugin.settings.succesfullSessionCount});
+
+        containerEl.createEl("h3", {text: "Writing Session Timing Settings"});
 
         new Setting(containerEl)
             .setName("Countdown Seconds")
@@ -41,6 +46,32 @@ export default class ExtractHighlightsPluginSettingsTab extends PluginSettingTab
                         this.plugin.saveData(this.plugin.settings);
                     }));
 
+        containerEl.createEl("h3", {text: "Immersive Writing Settings"});
+
+        new Setting(containerEl)
+            .setName("Session Font-Size")
+            .setDesc("Increases editor font-size temporarily for a more immersive experience. Leave empty to keep default size")
+            .addText((text) =>
+                text
+                    .setPlaceholder("32")
+                    .setValue(this.plugin.settings.customEditorFontSize)
+                    .onChange((value) => {
+                        this.plugin.settings.customEditorFontSize = value;
+                        this.plugin.saveData(this.plugin.settings);
+                    }));
+
+        new Setting(containerEl)
+            .setName("Session Background Color")
+            .setDesc("Changes background color of editor temporarily for a more immersive experience. Leave empty to omit")
+            .addText((text) =>
+                text
+                    .setPlaceholder("black, maroon, #CCC")
+                    .setValue(this.plugin.settings.customEditorBackgroundColor)
+                    .onChange((value) => {
+                        this.plugin.settings.customEditorBackgroundColor = value;
+                        this.plugin.saveData(this.plugin.settings);
+                    }));
+
         containerEl.createEl("hr");
 
         containerEl.createEl("h3", {text: "Thank You"});
@@ -51,6 +82,6 @@ export default class ExtractHighlightsPluginSettingsTab extends PluginSettingTab
         })
 
         containerEl.createEl("h3", {text: "Disclaimer"});
-        containerEl.createEl("i", {text: "This plugin is provided as-is with no warranty that it'll work exactly as you expect. It's made to DELETE text in a note after X seconds of inactivity. Please do not hold me responsible if it does, in fact, DElETE your text. That's what it does."});
+        containerEl.createEl("i", {text: "This plugin is provided as-is with NO warranty that it'll work exactly as you expect. It's made to DELETE text in a note after X seconds of inactivity when you're start a session. Please do not hold me responsible if it does, in fact, DELETE your text. That's what it does. On the other hand there is always the possibility of a bug that makes this plugin behave unexpectedly."});
     }
 }
