@@ -128,7 +128,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
 
     removeStyle() {
         document.getElementById('dangerzone-writing-style').remove();
-        this.updateStyle();
+        this.app.workspace.trigger('css-change');
     }
 }
 
@@ -179,6 +179,8 @@ class CountdownTimer {
             if (this.counter === 0) {
                 statusBar.setText("");
                 new Notice("Dangerzone session finished!");
+
+                this.editor.getWrapperElement().setAttribute("style", "opacity: 100%");
                 this.plugin.removeStyle();
 
                 // Save progress if there's something written
