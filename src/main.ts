@@ -42,7 +42,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
     startOrContinueTimer() {
         this.setCustomStyle();
 
-        if(this.countdown) {
+        if(this.countdown && !this.countdown.isFinished()) {
             this.countdown.resetCountdown();
         } else {
             this.startTimer();
@@ -128,6 +128,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
 
     removeStyle() {
         document.getElementById('dangerzone-writing-style').remove();
+        this.updateStyle();
     }
 }
 
@@ -177,9 +178,7 @@ class CountdownTimer {
 
             if (this.counter === 0) {
                 statusBar.setText("");
-                clearInterval(this.intervalId);
                 new Notice("Dangerzone session finished!");
-
                 this.plugin.removeStyle();
 
                 // Save progress if there's something written
@@ -188,6 +187,8 @@ class CountdownTimer {
                     currentSettings.succesfullSessionCount = (currentSettings.getSuccesfullSessionCountInteger() + 1).toString();
                     this.plugin.saveData(currentSettings);
                 }
+
+                clearInterval(this.intervalId);
             }
         }, 1000)
     }
@@ -204,5 +205,9 @@ class CountdownTimer {
     resetSecondUntilDeletion() {
         // important: add +1 to this.secondsUntilDeletion to account for at least one key-stroke
         this.secondsRemaining = this.secondsUntilDeletion + 1;
+    }
+
+    isFinished() {
+        return this.counter <= 0;
     }
 }
