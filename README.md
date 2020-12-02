@@ -48,14 +48,26 @@ Again, let me be clear: If you stop for more than 5 seconds, your writing in thi
 
 If you've never used this type of writing before, I highly recommend starting with the defaults and an empty note to get a feeling for it. 
 
-Gradually increase session time as you get more comfortable with this type of challenge. 
+### A few simple tips and tricks
+
+1. **Fake it till you make it**: It's totally fine to write a lot of "nothing" such as `Well, I don't know what to write here. Nothing comes to mind. I'm sitting here. Writing...` - I do this all the time. You'll eventually find a thought that is interesting, so don't worry. 
+2. **Don't Panic**: Just because there's a countdown, doesn't mean you have to freak out. I know this sounds weird, but as long as you hit a key every second or so, this thing won't blow up. So, instead of switching to PANIC-MODE as soon as you start a session, just stay calm and start writing. 
+3. **Start small**: Gradually increase session time as you get more comfortable with this type of challenge. 
+4. **Learn to touch-type**: [Learn to touch-type](https://www.typingclub.com/) if you're not yet fully touch-typing and you're struggling with the mechanics to keep up. This is one of the most powerful hard-skills I've ever learned.  
 
 ## How to personalize your sessions and fuse time
 
 To optimize your flow experience, you can configure your:
 
-- Countdown duration (Default 60s)
-- Seconds-to-deletion fuse (Default 5s)
+### Writing Session Timing Settings
+
+- **Countdown duration in seconds**: Default is 60s, How many seconds you want your Dangerzone Writing session to last?
+- **Seconds-to-deletion fuse**: Default is 5s, How many seconds until your text is deleted?
+
+### Immersive Writing Settings
+
+- **Session Font-Size**: Increases editor font-size temporarily for a more immersive experience. Leave empty to keep default size
+- **Session Background Color**: Changes background color of editor temporarily for a more immersive experience. Find a good color at [https://htmlcolorcodes.com](https://htmlcolorcodes.com/). Leave empty to omit
 
 ## Successful sessions tracking
 
