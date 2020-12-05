@@ -28,8 +28,10 @@ export default class CountdownTimer {
 
             if (this.secondsRemaining < this.secondsUntilDeletion && this.editor.getValue().length > 0) {
 
-                const opacity = this.getOpacityForSecondsRemaining(this.secondsRemaining, this.secondsUntilDeletion);
-                this.editor.getWrapperElement().setAttribute("style", "opacity:" + opacity + "%");
+                if(this.secondsRemaining <= 5) {
+                    const opacity = this.getOpacityForSecondsRemaining(this.secondsRemaining, this.secondsUntilDeletion);
+                    this.editor.getWrapperElement().setAttribute("style", "opacity:" + opacity + "%");
+                }
 
                 statusBar.setText(`${this.secondsRemaining}`);
                 statusBar.setAttr('style', 'color: red;');
