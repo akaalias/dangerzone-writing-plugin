@@ -101,7 +101,7 @@ export default class DangerzoneWritingPlugin extends Plugin {
         cm: CodeMirror.Editor,
         event: KeyboardEvent
     ): void => {
-        if (this.countdown) {
+        if (this.countdown && !this.countdown.isFinished()) {
             this.countdown.resetSecondUntilDeletion();
         }
     };
