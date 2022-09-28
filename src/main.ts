@@ -1,4 +1,4 @@
-import {addIcon, Notice, Plugin, WorkspaceLeaf, MarkdownView} from 'obsidian';
+import {addIcon, Notice, Plugin, MarkdownView} from 'obsidian';
 import DangerzoneWritingPluginSettings from "./DangerzoneWritingPluginSettings";
 import DangerzoneWritingPluginSettingsTab from "./DangerzoneWritingPluginSettingsTab";
 import CountdownTimer from "./CountdownTimer";
@@ -20,12 +20,6 @@ export default class DangerzoneWritingPlugin extends Plugin {
         this.addRibbonIcon('watch', 'Dangerzone Writing', () => {
             this.startOrContinueTimer();
         });
-
-        this.registerEvent(
-            this.app.on("codemirror", (cm: CodeMirror.Editor) => {
-                cm.on("keydown", this.handleKeyDown);
-            })
-        );
 
         this.addCommand({
             id: "dangerzone-session-start",
@@ -77,17 +71,16 @@ export default class DangerzoneWritingPlugin extends Plugin {
         let activeLeaf = this.app.workspace.activeLeaf;
         const mdView = this.app.workspace.activeLeaf.view as MarkdownView;
 
-        if (mdView && mdView.sourceMode) {
-            const cmEditor = mdView.sourceMode.cmEditor;
+        if (mdView && mdView.getMode && mdView.getMode() === "source") {
+            const cmEditor = mdView.editor;
 
-            if (cmEditor) {
+            if (cmEditor && (app.workspace.rootSplit as any).containerEl as HTMLElement) {
                 this.countdown = new CountdownTimer(this.settings.getCountdownSecondsInteger(),
                     cmEditor,
                     this.statusBar,
                     activeLeaf,
                     this.settings.getSecondsUntilDeletionInteger(),
                     this);
-
                 new Notice("Dangerzone Writing session started!");
             } else {
                 new Notice("No editor active");
@@ -96,15 +89,6 @@ export default class DangerzoneWritingPlugin extends Plugin {
             new Notice("No file open.");
         }
     }
-
-    handleKeyDown = (
-        cm: CodeMirror.Editor,
-        event: KeyboardEvent
-    ): void => {
-        if (this.countdown && !this.countdown.isFinished()) {
-            this.countdown.resetSecondUntilDeletion();
-        }
-    };
 
     setCustomStyle() {
         const css = document.createElement('style');

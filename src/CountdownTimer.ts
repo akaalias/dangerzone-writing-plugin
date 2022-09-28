@@ -1,16 +1,16 @@
-import {Notice, WorkspaceLeaf} from "obsidian";
+import {Editor, Notice, WorkspaceLeaf} from "obsidian";
 import DangerzoneWritingPlugin from "./main";
 
 export default class CountdownTimer {
     public intervalId: NodeJS.Timeout;
-    editor: CodeMirror.Editor;
+    editor: Editor;
     activeLeaf: WorkspaceLeaf;
     secondsUntilDeletion: number;
     secondsRemaining: number;
     plugin: DangerzoneWritingPlugin;
     originalCountdownSeconds: number;
 
-    constructor(public counter: number, editor: CodeMirror.Editor, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number, plugin: DangerzoneWritingPlugin) {
+    constructor(public counter: number, editor: Editor, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number, plugin: DangerzoneWritingPlugin) {
         this.plugin = plugin;
         this.editor = editor;
         this.secondsUntilDeletion = secondsUntilDeletion;
@@ -19,7 +19,11 @@ export default class CountdownTimer {
         this.counter = counter;
         this.originalCountdownSeconds = counter;
 
-        this.editor.getWrapperElement().setAttribute("id", "active-dangerzone-editor");
+        const wrapper = (app.workspace.rootSplit as any).containerEl as HTMLElement;
+        const keyDownCb =  this.handleKeyDown.bind(this);
+        wrapper.addEventListener("keydown", keyDownCb);
+
+        wrapper.setAttribute("id", "active-dangerzone-editor");
 
         this.intervalId = setInterval(() => {
 
@@ -30,13 +34,13 @@ export default class CountdownTimer {
 
                 if(this.secondsRemaining <= 5) {
                     const opacity = this.getOpacityForSecondsRemaining(this.secondsRemaining, this.secondsUntilDeletion);
-                    this.editor.getWrapperElement().setAttribute("style", "opacity:" + opacity + "%");
+                    wrapper.setAttribute("style", "opacity:" + opacity + "%");
                 }
 
                 statusBar.setText(`${this.secondsRemaining}`);
                 statusBar.setAttr('style', 'color: red;');
             } else {
-                this.editor.getWrapperElement().setAttribute("style", "opacity: 100%");
+                wrapper.setAttribute("style", "opacity: 100%");
 
                 statusBar.setText(`${this.counter} seconds left`);
                 statusBar.setAttr('style', 'color: #999;');
@@ -51,7 +55,7 @@ export default class CountdownTimer {
                 statusBar.setText("");
                 new Notice("Dangerzone session finished!");
 
-                this.editor.getWrapperElement().setAttribute("style", "opacity: 100%");
+                wrapper.setAttribute("style", "opacity: 100%");
                 this.plugin.removeStyle();
 
                 // Save progress if there's something written
@@ -62,9 +66,17 @@ export default class CountdownTimer {
                 }
 
                 clearInterval(this.intervalId);
+                wrapper.removeEventListener("keydown", keyDownCb);
             }
         }, 1000)
     }
+
+    handleKeyDown = () => {
+        if (!this.isFinished()) {
+            this.resetSecondUntilDeletion();
+        }
+    };
+
 
     getOpacityForSecondsRemaining(secondsRemaining: number, secondsUntilDeletion: number) {
         // 3 / 5
