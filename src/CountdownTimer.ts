@@ -1,4 +1,4 @@
-import {Editor, Notice, WorkspaceLeaf} from "obsidian";
+import {Editor, MarkdownView, Notice, WorkspaceLeaf} from "obsidian";
 import DangerzoneWritingPlugin from "./main";
 
 export default class CountdownTimer {
@@ -10,16 +10,16 @@ export default class CountdownTimer {
     plugin: DangerzoneWritingPlugin;
     originalCountdownSeconds: number;
 
-    constructor(public counter: number, editor: Editor, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number, plugin: DangerzoneWritingPlugin) {
+    constructor(public counter: number, statusBar: HTMLElement, activeLeaf: WorkspaceLeaf, secondsUntilDeletion: number, plugin: DangerzoneWritingPlugin) {
         this.plugin = plugin;
-        this.editor = editor;
+        this.editor = (activeLeaf.view as MarkdownView).editor;
         this.secondsUntilDeletion = secondsUntilDeletion;
         this.secondsRemaining = secondsUntilDeletion;
         this.activeLeaf = activeLeaf;
         this.counter = counter;
         this.originalCountdownSeconds = counter;
 
-        const wrapper = (app.workspace.rootSplit as any).containerEl as HTMLElement;
+        const wrapper = activeLeaf.view.containerEl;
         const keyDownCb =  this.handleKeyDown.bind(this);
         wrapper.addEventListener("keydown", keyDownCb);
 

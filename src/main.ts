@@ -68,15 +68,13 @@ export default class DangerzoneWritingPlugin extends Plugin {
     }
 
     startTimer() {
-        let activeLeaf = this.app.workspace.activeLeaf;
-        const mdView = this.app.workspace.activeLeaf.view as MarkdownView;
+        let activeLeaf = this.app.workspace.getLeaf();
 
-        if (mdView && mdView.getMode && mdView.getMode() === "source") {
-            const cmEditor = mdView.editor;
+        const mdView = activeLeaf.view as MarkdownView;
 
-            if (cmEditor && (app.workspace.rootSplit as any).containerEl as HTMLElement) {
+        if (mdView && mdView.getViewType() === "markdown" && mdView.getMode && mdView.getMode() === "source") {
+            if (mdView.editor) {
                 this.countdown = new CountdownTimer(this.settings.getCountdownSecondsInteger(),
-                    cmEditor,
                     this.statusBar,
                     activeLeaf,
                     this.settings.getSecondsUntilDeletionInteger(),
