@@ -1,8 +1,8 @@
 {
 	"id": "dangerzone-writing-plugin",
 	"name": "Dangerzone Writing",
-	"version": "0.0.10",
-	"minAppVersion": "0.9.12",
+	"version": "0.0.11",
+	"minAppVersion": "0.15.9",
 	"description": "“Elegant”, “Dangerous”, “Relaxing”, “Perverted”, “Your best friend”, “Your worst nightmare”. When you start a Dangerzone session, you have to write without stopping for X seconds. If you stop, think and look around, after Y seconds the plugin will DELETE what you've written in this note.",
 	"author": "Alexis Rondeau",
 	"authorUrl": "https://publish.obsidian.md/alexisrondeau",
